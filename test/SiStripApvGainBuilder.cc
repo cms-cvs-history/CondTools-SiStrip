@@ -86,10 +86,11 @@ void SiStripApvGainBuilder::analyze(const edm::Event& evt, const edm::EventSetup
   
   if( mydbservice.isAvailable() ){
     try{
-      size_t callbackToken=mydbservice->callbackToken("SiStripApvGain");
-      edm::LogInfo("SiStripApvGainBuilder")<<"current time "<<mydbservice->currentTime() << " callbackToken " << callbackToken <<std::endl;
-      //mydbservice->newValidityForNewPayload<SiStripApvGain>(SiStripApvGain_,mydbservice->currentTime(),callbackToken);      
-      mydbservice->newValidityForNewPayload<SiStripApvGain>(SiStripApvGain_,mydbservice->endOfTime(),callbackToken);      
+      if( mydbservice->isNewTagRequest("SiStripApvGainRcd") ){
+	mydbservice->createNewIOV<SiStripApvGain>(SiStripApvGain_,mydbservice->endOfTime(),"SiStripApvGainRcd");      
+      } else {
+	mydbservice->appendSinceTime<SiStripApvGain>(SiStripApvGain_,mydbservice->currentTime(),"SiStripApvGainRcd");      
+      }
     }catch(const cond::Exception& er){
       edm::LogError("SiStripApvGainBuilder")<<er.what()<<std::endl;
     }catch(const std::exception& er){
