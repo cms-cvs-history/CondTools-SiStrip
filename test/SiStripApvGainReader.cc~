@@ -1,0 +1,40 @@
+#include "CondFormats/SiStripObjects/interface/SiStripGain.h"
+#include "CondFormats/DataRecord/interface/SiStripGainRcd.h"
+
+#include "CondTools/SiStrip/test/SiStripGainReader.h"
+
+#include <iostream>
+#include <stdio.h>
+#include <sys/time.h>
+
+
+using namespace cms;
+
+SiStripGainReader::SiStripGainReader( const edm::ParameterSet& iConfig ):
+  printdebug_(iConfig.getUntrackedParameter<bool>("printDebug",false)){};
+
+SiStripGainReader::~SiStripGainReader(){}
+
+void SiStripGainReader::analyze( const edm::Event& e, const edm::EventSetup& iSetup){
+
+  edm::ESHandle<SiStripGain> SiStripGain_;
+  iSetup.get<SiStripGainRcd>().get(SiStripGain_);
+  edm::LogInfo("SiStripGainReader") << "[SiStripGainReader::analyze] End Reading SiStripGain" << std::endl;
+  
+  std::vector<uint32_t> detid;
+  SiStripGain_->getDetIds(detid);
+  
+  if (printdebug_)
+    for (size_t id=0;id<detid.size();id++)
+      {
+	SiStripGain::Range range=SiStripGain_->getRange(detid[id]);
+	
+	int apv=0;
+	for(int it=0;it<range.second-range.first;it++){
+	  edm::LogInfo("SiStripGainReader")  << "detid " << detid[id] << " \t"
+					     << " apv " << apv++ << " \t"
+					     << SiStripGain_->getApvGain(it,range)     << " \t" 
+					     << std::endl; 	    
+	} 
+      }
+}
