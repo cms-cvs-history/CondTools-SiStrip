@@ -27,8 +27,7 @@ using namespace std;
 using namespace cms;
 
 SiStripApvGainBuilder::SiStripApvGainBuilder( const edm::ParameterSet& iConfig ):
-  printdebug_(iConfig.getUntrackedParameter<bool>("printDebug",false)){};
-
+  printdebug_(iConfig.getUntrackedParameter<bool>("printDebug",false)){}
 
 void SiStripApvGainBuilder::beginJob( const edm::EventSetup& iSetup ) {
 

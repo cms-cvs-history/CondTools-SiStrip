@@ -11,7 +11,7 @@
 using namespace cms;
 
 SiStripApvGainReader::SiStripApvGainReader( const edm::ParameterSet& iConfig ):
-  printdebug_(iConfig.getUntrackedParameter<bool>("printDebug",false)){};
+  printdebug_(iConfig.getUntrackedParameter<bool>("printDebug",false)){}
 
 SiStripApvGainReader::~SiStripApvGainReader(){}
 
