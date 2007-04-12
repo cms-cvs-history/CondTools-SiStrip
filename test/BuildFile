@@ -19,7 +19,7 @@
 
 
 <library file="*.cc" name=testCondToolsSiStrip>
-<flags SEAL_PLUGIN_NAME="testCondToolsSiStrip">
+<flags EDM_PLUGIN=1>
 </library>
 	
 
