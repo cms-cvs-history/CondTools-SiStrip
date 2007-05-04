@@ -62,9 +62,9 @@ void SiStripApvGainBuilder::analyze(const edm::Event& evt, const edm::EventSetup
 
   for(std::vector< pair<uint32_t,unsigned short> >::const_iterator it = detid_apvs.begin(); it != detid_apvs.end(); it++){
     //Generate Noise for det detid
-    std::vector<short> theSiStripVector;
+    std::vector<float> theSiStripVector;
     for(unsigned short j=0; j<it->second; j++){
-      uint16_t gain= (j+1)*1000+(int) (RandFlat::shoot(1.)*100);
+      float gain= (j+1)*1000+ (RandFlat::shoot(1.)*100);
 	if (printdebug_)
 	  edm::LogInfo("SiStripApvGainBuilder") << "detid " << it->first << " \t"
 					     << " apv " << j << " \t"
