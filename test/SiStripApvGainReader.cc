@@ -23,13 +23,25 @@ void SiStripApvGainReader::analyze( const edm::Event& e, const edm::EventSetup& 
   
   std::vector<uint32_t> detid;
   SiStripApvGain_->getDetIds(detid);
-  
+  SiStripApvGain::Range range=SiStripApvGain_->getRange(detid[1]);
+
+  edm::LogInfo("Number of detids ")  << detid.size() << std::endl;
+  int apv=0;
+  edm::LogInfo(" First det gain values  ")  <<  std::endl; 	
+  for(int it=0;it<range.second-range.first;it++){
+    edm::LogInfo("SiStripApvGainReader")  << "detid " << detid[1] << " \t"
+					     << " apv " << apv++ << " \t"
+					     << SiStripApvGain_->getApvGain(it,range)     << " \t" 
+					     << std::endl; 
+  }
+
+
   if (printdebug_)
     for (size_t id=0;id<detid.size();id++)
       {
 	SiStripApvGain::Range range=SiStripApvGain_->getRange(detid[id]);
 	
-	int apv=0;
+	apv=0;
 	for(int it=0;it<range.second-range.first;it++){
 	  edm::LogInfo("SiStripApvGainReader")  << "detid " << detid[id] << " \t"
 					     << " apv " << apv++ << " \t"
