@@ -40,8 +40,8 @@ void SiStripApvGainBuilder::beginJob( const edm::EventSetup& iSetup ) {
     if( dynamic_cast<StripGeomDetUnit*>((*it))!=0){
       uint32_t detid=((*it)->geographicalId()).rawId();            
       const StripTopology& p = dynamic_cast<StripGeomDetUnit*>((*it))->specificTopology();
-      unsigned short NAPVPairs = p.nstrips()/256;
-      if(NAPVPairs<2 || NAPVPairs>3 ) {
+      unsigned short NAPVPairs = p.nstrips()/128;
+      if(NAPVPairs<1 || NAPVPairs>6 ) {
 	edm::LogError("SiStripApvGainBuilder")<<" Problem with Number of strips in detector.. "<< p.nstrips() <<" Exiting program"<<endl;
 	exit(1);
       }
