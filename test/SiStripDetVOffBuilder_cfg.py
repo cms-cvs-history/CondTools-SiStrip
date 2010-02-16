@@ -35,7 +35,7 @@ process.PoolDBOutputService = cms.Service("PoolDBOutputService",
 process.load("Configuration.StandardSequences.Geometry_cff")
 process.TrackerDigiGeometryESModule.applyAlignment = False
 
-process.prod = cms.EDFilter("SiStripDetVOffBuilder")
+process.prod = cms.EDAnalyzer("SiStripDetVOffBuilder")
 
 #process.print = cms.OutputModule("AsciiOutputModule")
 
