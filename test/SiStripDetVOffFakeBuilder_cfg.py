@@ -1,12 +1,11 @@
 import FWCore.ParameterSet.Config as cms
 
 process = cms.Process("ICALIB")
-process.MessageLogger = cms.Service("MessageLogger",
-    cout = cms.untracked.PSet(
-        threshold = cms.untracked.string('INFO')
-    ),
+process.MessageLogger = cms.Service(
+    "MessageLogger",
+    threshold = cms.untracked.string('INFO'),
     #destinations = cms.untracked.vstring('cout'),
-    destinations = cms.untracked.vstring('SiStripDetVOffBuilder.log')
+    destinations = cms.untracked.vstring('SiStripDetVOffFakeBuilder.log')
 )
 
 process.source = cms.Source("EmptyIOVSource",
@@ -35,7 +34,7 @@ process.PoolDBOutputService = cms.Service("PoolDBOutputService",
 process.load("Configuration.StandardSequences.Geometry_cff")
 process.TrackerDigiGeometryESModule.applyAlignment = False
 
-process.prod = cms.EDAnalyzer("SiStripDetVOffBuilder")
+process.prod = cms.EDAnalyzer("SiStripDetVOffFakeBuilder")
 
 #process.print = cms.OutputModule("AsciiOutputModule")
 

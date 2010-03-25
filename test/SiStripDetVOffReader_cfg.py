@@ -2,11 +2,10 @@ import FWCore.ParameterSet.Config as cms
 
 process = cms.Process("DetVOffReader")
 
-process.MessageLogger = cms.Service("MessageLogger",
+process.MessageLogger = cms.Service(
+    "MessageLogger",
     debugModules = cms.untracked.vstring(''),
-    cablingReader = cms.untracked.PSet(
-        threshold = cms.untracked.string('INFO')
-    ),
+    threshold = cms.untracked.string('INFO'),
     destinations = cms.untracked.vstring('SiStripDetVOffReader.log')
 )
 
